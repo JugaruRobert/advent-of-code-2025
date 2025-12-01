@@ -25,3 +25,4 @@ const newDayPath = `${basePath}/${day}`;
 mkdirSync(newDayPath);
 copyFileSync(`${__dirname}/puzzle.ts.tpl`, `${newDayPath}/puzzle.ts`);
 writeFileSync(`${newDayPath}/input.txt`, '');
+writeFileSync(`${newDayPath}/description.txt`, '');
