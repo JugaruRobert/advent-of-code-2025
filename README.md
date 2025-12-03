@@ -1,3 +1,3 @@
-# 🎄 Advent of Code 2024 - Typescript 🎄
+# 🎄 Advent of Code 2025 - Typescript 🎄
 
-AOC: https://adventofcode.com/2024
+AOC: https://adventofcode.com/2025

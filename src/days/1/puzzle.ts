@@ -24,7 +24,6 @@ export default class ConcretePuzzle extends Puzzle {
     instructions.forEach(({ dir, value }) => {
       // For R1000 we have 10 overflows
       const overflow = Math.floor(value / 100);
-
       counter += overflow;
 
       const current = ((value % 100) + 100) % 100;
