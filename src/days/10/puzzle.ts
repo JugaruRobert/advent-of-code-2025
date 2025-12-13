@@ -55,15 +55,8 @@ export default class ConcretePuzzle extends Puzzle {
 
     let sum = 0;
     for (const nodeTo of allNodes[node]) {
-      let tempContainsDAC = containsDAC,
-        tempContainsFFT = containsFFT;
-      if (nodeTo === 'dac') {
-        tempContainsDAC = true;
-      }
-
-      if (nodeTo === 'fft') {
-        tempContainsFFT = true;
-      }
+      let tempContainsDAC = containsDAC || nodeTo === 'dac';
+      let tempContainsFFT = containsFFT || nodeTo === 'fft';
 
       sum += this.getPossiblePathsCountWithNodes(
         nodeTo,
