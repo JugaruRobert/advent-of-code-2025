@@ -9,7 +9,15 @@ export default class ConcretePuzzle extends Puzzle {
   }
 
   solveSecond(): PuzzleResult {
-    return 'unsolved';
+    const nodes = this.parseInput();
+    return this.getPossiblePathsCountWithNodes(
+      'svr',
+      'out',
+      nodes,
+      {},
+      false,
+      false
+    );
   }
 
   private getPossiblePathsCount(
@@ -25,6 +33,49 @@ export default class ConcretePuzzle extends Puzzle {
     for (const nodeTo of allNodes[node]) {
       sum += this.getPossiblePathsCount(nodeTo, outNode, allNodes);
     }
+    return sum;
+  }
+
+  private getPossiblePathsCountWithNodes(
+    node: string,
+    outNode: string,
+    allNodes: Record<string, string[]>,
+    storedPaths: Record<string, number>,
+    containsDAC: boolean,
+    containsFFT: boolean
+  ) {
+    const key = `${node}:${containsDAC}:${containsFFT}`;
+    if (key in storedPaths) {
+      return storedPaths[key];
+    }
+
+    if (node === outNode) {
+      return Number(containsDAC && containsFFT);
+    }
+
+    let sum = 0;
+    for (const nodeTo of allNodes[node]) {
+      let tempContainsDAC = containsDAC,
+        tempContainsFFT = containsFFT;
+      if (nodeTo === 'dac') {
+        tempContainsDAC = true;
+      }
+
+      if (nodeTo === 'fft') {
+        tempContainsFFT = true;
+      }
+
+      sum += this.getPossiblePathsCountWithNodes(
+        nodeTo,
+        outNode,
+        allNodes,
+        storedPaths,
+        tempContainsDAC,
+        tempContainsFFT
+      );
+    }
+
+    storedPaths[key] = sum;
     return sum;
   }
 
